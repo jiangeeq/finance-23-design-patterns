@@ -1,0 +1,11 @@
+package org.example.s07_bridge.investment_portfolio.impl;
+
+import org.example.s07_bridge.investment_portfolio.abstracts.Asset;
+
+public class BondAsset implements Asset {
+    @Override
+    public void manage() {
+        System.out.print("债券资产 ");
+
+    }
+}

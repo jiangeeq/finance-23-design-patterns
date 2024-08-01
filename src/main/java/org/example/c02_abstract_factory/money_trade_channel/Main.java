@@ -1,0 +1,41 @@
+package org.example.c02_abstract_factory.money_trade_channel;
+
+import java.util.Scanner;
+
+/**
+ * 抽象工厂模式是一种创建型设计模式，它提供一个接口，用于创建一系列相关或依赖的对象，而无需指定它们的具体类。
+ * 通过这个模式，客户端可以在不指定具体类的情况下，生成一系列相关的对象。通过这种方式，可以实现代码的高内聚和低耦合，提高系统的灵活性和可扩展性。
+ *
+ * 关键点
+ * 1.抽象工厂接口：定义了创建一系列相关对象的方法。
+ * 2.具体工厂类：实现抽象工厂接口，创建具体的产品对象。
+ * 3.抽象产品接口：为一类产品定义接口。
+ * 4.具体产品类：实现抽象产品接口，提供具体的产品实现。
+ * 5.客户端：使用抽象工厂接口来创建具体的产品对象。
+ *
+ * 应用场景: 1.不同地区的银行可能会提供不同的账户类型和贷款产品。抽象工厂模式可以根据地区创建相应的账户和贷款产品。
+         2. 在金融机构中，理财产品和支付方式经常是紧密相关的。使用抽象工厂模式，可以创建不同策略的理财产品和支付方式
+         3. 金融系统中的交易处理系统需要处理不同类型的交易（如存款、取款和转账）以及不同的交易渠道（如网银、手机银行和ATM）。通过抽象工厂模式，我们可以为不同的渠道提供相应的交易处理对象。
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("请输入交易渠道：‘1：网银’、‘2：手机银行’、‘3：ATM’");
+        String in = new Scanner(System.in).nextLine();
+
+        TransactionFactory transactionFactory;
+
+        switch (in){
+            case "1" -> transactionFactory = new OnlineBankingFactory();
+            case "2" -> transactionFactory =  new MobileBankingFactory();
+            case "3" -> transactionFactory =  new ATMFactory();
+            default -> {
+                System.out.println("别乱搞了");
+                return;
+            }
+        }
+
+        Client tradeClient = new Client(transactionFactory);
+        tradeClient.processTransactions();
+    }
+}
